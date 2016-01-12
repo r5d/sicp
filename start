@@ -1,0 +1,8 @@
+#!/bin/sh
+
+## Heads up. This script is supposed to be run from the directory in
+## which it was found.
+
+# start guile interactive with current directory added to the
+# load-path.
+guile -L .
