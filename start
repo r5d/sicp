@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Under Creative Commons Attribution-ShareAlike 4.0 International. See
+# <https://creativecommons.org/licenses/by-sa/4.0/>.
+
 ## Heads up. This script is supposed to be run from the directory in
 ## which it was found.
 

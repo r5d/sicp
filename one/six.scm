@@ -1,3 +1,7 @@
+;;; Under Creative Commons Attribution-ShareAlike 4.0
+;;; International. See
+;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
+
 (define-module (one six)
    #:export (sqrt-sicp sqrt-nif square good-enough? new-if improve))
 

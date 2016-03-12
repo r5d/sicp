@@ -1,3 +1,7 @@
+;;; Under Creative Commons Attribution-ShareAlike 4.0
+;;; International. See
+;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
+
 (define-module (one three)
   #:export (square sum-of-squares largest first-arg-2nd-largest-p
                    sum-of-squares-of-largest-two))
