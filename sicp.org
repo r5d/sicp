@@ -46,3 +46,14 @@ order*, the expression will be expanded to
 #+END_SRC
 
 and will evaluate to ~0~.
+*** 6
+    If I've understood it correctly, scheme uses applicative-order
+    evaluation, meaning, it evaluates the operands before appling the
+    procedure.
+
+    In the case when ~new-if~ used in the ~sqrt-iter~ procedure, the
+    operands/arguments for the ~new-if~ -- ~(good-enough? guess x)~,
+    ~guess~, ~(sqrt-iter (improve guess x) x)~ -- are evaluated. Due
+    to the last operand, which is a call to the ~sqrt-iter~ procedure,
+    we get into infinite loop of evaluating the ~sqrt-iter~ procedure
+    again and again.
