@@ -8,6 +8,11 @@ begin with simplified, incomplete models. As we examine things in
 greater detail, these simple models become inadequate and must be
 replaced by more refined models.
 #+END_QUOTE
+** guile
+*** use module
+    #+BEGIN_SRC scheme
+    (use-modules (some thing))
+    #+END_SRC
 * exercises
 ** 1
 *** 4
