@@ -10,6 +10,7 @@
 
 (use-modules (one six))
 
+;;;; start yak shaving
 (define (gen-good-enough tolerance)
   (lambda (guess x)
     (< (abs (- (square guess) x)) tolerance)))
@@ -31,6 +32,8 @@
         (cons tolerance custom-sqrt)
         (cons (cons tolerance custom-sqrt)
               (tolerances-and-sqrt x (/ tolerance 10))))))
+;;;; end yak shaving
+
 ;;; start excercise 1.1.7
 (define (good-enough-alt? guess prev-guess)
   (< (abs (- guess prev-guess)) 0.001))
