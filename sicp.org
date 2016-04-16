@@ -62,19 +62,43 @@ and will evaluate to ~0~.
     again and again.
 *** 7
 
-#+BEGIN_SRC scheme
-$ guile
-scheme@(guile-user)> (sqrt 0.1)
-$1 =          0.31622776601683794
-#+END_SRC
+The following list show the tolerance value and the corresponding
+square root of 0.1 computed with that tolerance value.
 
 #+BEGIN_EXAMPLE
-                0.31622776601683794
-0.0001 =        0.316245562280389
-0.00001 =       0.31622776651756745
-0.000001 =      0.31622776651756745
-0.0000001 =     0.31622776651756745
-0.00000001 =    0.31622776651756745
-0.000000001 =   0.31622776651756745
-0.0000000001 =  0.31622776601683794
+((0.001 . 0.316245562280389)
+(1.0e-4 . 0.316245562280389)
+(1.0e-5 . 0.31622776651756745)
+(1.0000000000000002e-6 . 0.31622776651756745)
+(1.0000000000000002e-7 . 0.31622776651756745)
+(1.0000000000000002e-8 . 0.31622776651756745)
+(1.0000000000000003e-9 . 0.31622776651756745)
+1.0000000000000003e-10 . 0.31622776601683794)
 #+END_EXAMPLE
+
+Guile's =sqrt= function says the square root of 0.1 is
+0.31622776601683794:
+#+BEGIN_SRC scheme
+scheme@(guile-user)> (sqrt 0.1)
+$7 = 0.31622776601683794
+#+END_SRC
+
+From above, it can be observed that the only when the tolerance value
+for the =good-enough?= function is ~1.0e-10, does the square root of
+0.1 produced by our custom square root function matches the value
+produced by Guile's =sqrt= function.
+
+If the =good-enough?= is changed such that it returns =true= if the
+difference between the present guess and the previous guess is less
+than or equal to 0.001, the sqrt function yields 0.31622776651756745
+for sqrt(0.1).
+
+#+BEGIN_SRC scheme
+scheme@(guile-user)> (sqrt-sicp-alt 0.1)
+$9 = 0.31622776651756745
+#+END_SRC
+
+0.31622776651756745 is more precise than 0.316245562280389 (which is
+the answer returned by the custom sqrt function that uses the ol'
+=good-enough= function) but not as precise as the answer returned by
+the guile's sqrt function.
