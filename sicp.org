@@ -98,7 +98,12 @@ scheme@(guile-user)> (sqrt-sicp-alt 0.1)
 $9 = 0.31622776651756745
 #+END_SRC
 
-0.31622776651756745 is more precise than 0.316245562280389 (which is
-the answer returned by the custom sqrt function that uses the ol'
-=good-enough= function) but not as precise as the answer returned by
-the guile's sqrt function.
+0.31622776651756745 is more precise than 0.316245562280389 (the answer
+returned by the custom sqrt function that uses the ol' =good-enough=
+function) but not as precise as the answer returned by the guile's
+sqrt function.
+
+For a number as large as 1000000000, guile's =sqrt= function and
+=sqrt-sicp-alt= returns 31622.776601683792, =sqrt-sicp= returns
+31622.776601684047; =sqrt-sicp= being slightly more precise than the
+other functions.
