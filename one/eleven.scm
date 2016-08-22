@@ -1,6 +1,6 @@
-;;; Under Creative Commons Attribution-ShareAlike 4.0
-;;; International. See
-;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
+;;;; Under Creative Commons Attribution-ShareAlike 4.0
+;;;; International. See
+;;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
 
 (define-module (one eleven)
   #:export (recursive-fn))
