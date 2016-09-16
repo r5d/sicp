@@ -2,7 +2,20 @@
 ;;;; International. See
 ;;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
 
-;;; pascal's fucking triangle.
+;;;  ____________________________
+;;; < pascal's fucking triangle. >
+;;; ----------------------------
+;;;  \                 __
+;;;   \               (--)
+;;;    \              (  )
+;;;     \             /--\
+;;;       __         / \  \
+;;;      U--U\.'@@@@@@`.\  )
+;;;      \__/(@@@@@@@@@@) /
+;;;           (@@@@@@@@)((
+;;;           `YY~~~~YY' \\
+;;;            ||    ||   >>
+;;;
 
 (define-module (one twelve)
   #:export (compute-triangle
