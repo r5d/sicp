@@ -54,6 +54,5 @@
 
 (define (print-line l level)
   (let* ((l (map number->string l))
-        (spaces (string-join (make-list level " ") ""))
-        (line (string-append spaces (string-join l))))
+        (line (string-join l)))
     (format #t "~a\n" line)))
