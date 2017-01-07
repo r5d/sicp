@@ -10,7 +10,7 @@
   (let ((out ""))
     (define (log angle)
       (set! out (string-append out " (p (sine "
-                               (number->string angle))))
+                               (number->string (/ angle 3.0)))))
     (define (close-parens s)
       (string-trim (string-append
                     s (fold-matches "\\([p,s]" s ""
@@ -28,4 +28,4 @@
     (close-parens out)))
 ;;
 ;; (sine 12.15)
-;; $24 = "(p (sine 12.15 (p (sine 4.05 (p (sine 1.3499999999999999 (p (sine 0.44999999999999996 (p (sine 0.15))))))))))"
+;; $25 = "(p (sine 4.05 (p (sine 1.3499999999999999 (p (sine 0.44999999999999996 (p (sine 0.15 (p (sine 0.049999999999999996))))))))))"
