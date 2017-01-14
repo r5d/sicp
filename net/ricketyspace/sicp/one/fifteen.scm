@@ -2,7 +2,7 @@
 ;;;; International. See
 ;;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
 
-(define-module (one fifteen)
+(define-module (net ricketyspace sicp one fifteen)
   #:use-module (ice-9 regex)
   #:export (sine))
 

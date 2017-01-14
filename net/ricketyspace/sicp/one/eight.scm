@@ -2,7 +2,7 @@
 ;;; International. See
 ;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
 
-(define-module (one eight)
+(define-module (net ricketyspace sicp one eight)
   #:export (cube double
             div-three improve
             good-enough? cbrt-iter

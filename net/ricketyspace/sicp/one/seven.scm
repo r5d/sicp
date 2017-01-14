@@ -2,7 +2,7 @@
 ;;; International. See
 ;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
 
-(define-module (one seven)
+(define-module (net ricketyspace sicp one seven)
   #:export (tolerances-and-sqrt
             good-enough-alt?
             sqrt-iter-alt

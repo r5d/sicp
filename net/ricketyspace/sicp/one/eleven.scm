@@ -2,7 +2,7 @@
 ;;;; International. See
 ;;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
 
-(define-module (one eleven)
+(define-module (net ricketyspace sicp one eleven)
   #:export (recursive-fn
             make-cache
             alt-recursive-fn))

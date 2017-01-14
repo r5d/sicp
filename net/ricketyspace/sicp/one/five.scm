@@ -2,7 +2,7 @@
 ;;; International. See
 ;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
 
-(define-module (one five)
+(define-module (net ricketyspace sicp one five)
   #:export (p test))
 
 (define (p) (p))

@@ -2,7 +2,7 @@
 ;;; International. See
 ;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
 
-(define-module (one three)
+(define-module (net ricketyspace sicp one three)
   #:export (square sum-of-squares largest first-arg-2nd-largest-p
                    sum-of-squares-of-largest-two))
 

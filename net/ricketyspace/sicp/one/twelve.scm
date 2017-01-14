@@ -17,7 +17,7 @@
 ;;;            ||    ||   >>
 ;;;
 
-(define-module (one twelve)
+(define-module (net ricketyspace sicp one twelve)
   #:export (compute-triangle
             compute-line
             display-line

@@ -5,7 +5,7 @@
 ;;; adapted from section 1.2.2
 ;;; intolerable scheme drivel; ignore it.
 
-(define-module (one fourteen)
+(define-module (net ricketyspace sicp one fourteen)
   #:export (get-cc
             cc-range
             cc-diff-list))
