@@ -20,7 +20,10 @@
 ;;;
 
 (define-module (net ricketyspace sicp one seventeen)
-  #:export (fast-*))
+  #:export (double
+            halve
+            fast-*)
+  #:replace (even?))
 
 (define (double a)
   "Return A + A."
