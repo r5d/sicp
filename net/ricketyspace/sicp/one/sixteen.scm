@@ -22,5 +22,5 @@
 (define (fast-expt-iter b n a)
   "Excercise 1.16."
   (cond ((= n 0) a)
-        ((even? n) (fast-expt-iter b (- n 2) (* a (sqr b))))
+        ((even? n) (fast-expt-iter (sqr b) (/ n 2) a))
         (else (fast-expt-iter b (- n 1) (* a b)))))
