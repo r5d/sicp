@@ -41,6 +41,6 @@ B must be an even number."
 
 (define (fast-* a b)
   "Return A * B."
-  (cond ((= b 1) a)
+  (cond ((= b 0) 0)
         ((even? b) (double (fast-* a (halve b))))
         (else (+ a (fast-* a (- b 1))))))
