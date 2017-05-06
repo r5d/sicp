@@ -301,3 +301,39 @@ one/eleven.scm.
  1  13 78  286  715  1287 1716 1716 1287 715  286 78 13 1
 1 14 91 364 1001 2002 3003 3432 3003 2002 1001 364 91 14 1
 #+END_SRC
+*** 20
+
+#+BEGIN_EXAMPLE
+normal order - no. of calls to remainder - inf
+applicative order - no. of calls to remainder - 4
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+normal order
+(gcd 206 40)
+(gcd 40 (remainder 206 40))
+(gcd (remainder 206 40) (remainder 40 (remainder 206 40)))
+(gcd (remainder 40 (remainder 206 40))
+     (remainder (remainder 206 40)
+                (remainder 40 
+                           (remainder 206 40))))
+(gcd (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+     (remainder (remainder 40 (remainder 206 40))
+                (remainder (remainder 206 40)
+                           (remainder 40 (remainder 206 40)))))
+...
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+applicative order
+(gcd 206 40)
+(gcd 40 (remainder 206 40))
+(gcd 40 6)
+(gcd 6 (remainder 40 6))
+(gcd 6 4)
+(gcd 4 (remainder 6 4))
+(gcd 4 2)
+(gcd 2 (remainder 4 2))
+(gcd 2 0)
+2
+#+END_EXAMPLE
