@@ -303,25 +303,89 @@ one/eleven.scm.
 #+END_SRC
 *** 20
 
+#+BEGIN_SRC scheme
+(define (gcd a b)
+  (if (= b 0)
+      a
+      (gcd b (remainder a b))))
+#+END_SRC
+
+
 #+BEGIN_EXAMPLE
-normal order - no. of calls to remainder - inf
+normal order - no. of calls to remainder - 14
 applicative order - no. of calls to remainder - 4
 #+END_EXAMPLE
 
 #+BEGIN_EXAMPLE
 normal order
 (gcd 206 40)
+
+ (= (= 40 0)) # #f
+
 (gcd 40 (remainder 206 40))
+
+ ;; 1 call here.
+ (= (remainder 206 40) 0)
+ (= (6 0))
+
 (gcd (remainder 206 40) (remainder 40 (remainder 206 40)))
+
+ ;; 2 calls here.
+ (= (remainder 40 (remainder 206 40)) 0)
+ (= (remainder 40 6) 0)
+ (= 4 0)
+
 (gcd (remainder 40 (remainder 206 40))
      (remainder (remainder 206 40)
-                (remainder 40 
-                           (remainder 206 40))))
-(gcd (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+                (remainder 40 (remainder 206 40))))
+
+ ;; 4 calls here.
+ (= (remainder (remainder 206 40)
+               (remainder 40 (remainder 206 40))) 0)
+ (= (remainder (remainder 206 40)
+               (remainder 40 6)) 0)
+ (= (remainder 6 4) 0)
+ (= 2 0)
+
+(gcd (remainder (remainder 206 40)
+                (remainder 40 (remainder 206 40)))
      (remainder (remainder 40 (remainder 206 40))
                 (remainder (remainder 206 40)
                            (remainder 40 (remainder 206 40)))))
-...
+
+ ;; 7 calls here.
+ (= (remainder (remainder 40 (remainder 206 40))
+                (remainder (remainder 206 40)
+                           (remainder 40 (remainder 206 40)))) 0)
+ (= (remainder (remainder 40 (remainder 206 40))
+               (remainder (remainder 206 40)
+                          (remainder 40 6))) 0)
+ (= (remainder (remainder 40 (remainder 206 40))
+               (remainder (remainder 206 40)
+                          4)) 0)
+ (= (remainder (remainder 40 (remainder 206 40))
+               (remainder 6
+                          4)) 0)
+ (= (remainder (remainder 40 (remainder 206 40))
+               2) 0)
+ (= (remainder (remainder 40 6)
+               2) 0)
+ (= (remainder 4
+               2) 0)
+ (= 0 0)
+
+;; 4 calls here.
+(remainder (remainder 206 40)
+           (remainder 40 (remainder 206 40)))
+(remainder (remainder 206 40)
+           (remainder 40 6))
+(remainder (remainder 206 40)
+           (remainder 40 6))
+(remainder (remainder 206 40)
+           4)
+(remainder 6
+           4)
+2 ; (+ 1 2 4 7 4) => 14 calls in total.
 #+END_EXAMPLE
 
 #+BEGIN_EXAMPLE
