@@ -8,6 +8,64 @@ begin with simplified, incomplete models. As we examine things in
 greater detail, these simple models become inadequate and must be
 replaced by more refined models.
 #+END_QUOTE
+*** 2
+**** 6
+***** The Fermat Test
+
+#+BEGIN_EXAMPLE
+(expmod 2 5 5)
+(remainder (* 2 (expmod 2 4 5)) 5)
+(remainder (* 2 (remainder (square (expmod 2 2 5)) 5)) 5)
+(remainder (* 2 (remainder (square (remainder (square (expmod 2 1 5))
+                                              5)) 5)) 5)
+(remainder (* 2 (remainder (square (remainder
+                                        (square (remainder
+                                                          (* 2 (expmod
+                                                                     2
+                                                                     0
+                                                                     5))
+                                                          5)) 5)) 5)) 5)
+(remainder (* 2 (remainder (square (remainder
+                                        (square (remainder
+                                                          (* 2 1) 5))
+                                         5)) 5)) 5)
+(remainder (* 2 (remainder (square (remainder (square (remainder 2 5))
+                                              5)) 5)) 5)
+(remainder (* 2 (remainder (square (remainder (square 2) 5)) 5)) 5)
+(remainder (* 2 (remainder (square (remainder 4 5)) 5)) 5)
+(remainder (* 2 (remainder (square 4) 5)) 5)
+(remainder (* 2 (remainder 16 5)) 5)
+(remainder (* 2 1) 5)
+(remainder 2 5)
+2
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+(expmod 2 6 6)
+(remainder (square (expmod 2 3 6) 6))
+(remainder (square (remainder (* 2 (expmod 2 2 6)) 6)) 6)
+(remainder (square (remainder (* 2 (remainder (square (expmod 2 1 6))
+                                              6)) 6)) 6)
+(remainder (square (remainder (* 2 (remainder
+                                       (square (remainder
+                                                   (* 2 (expmod 2 0 6))
+                                                   6)) 6)) 6)) 6)
+(remainder (square (remainder (* 2 (remainder
+                                       (square (remainder (* 2 1) 6))
+                                       6)) 6)) 6)
+(remainder (square (remainder (* 2 (remainder (square (remainder 2 6))
+                                              6)) 6)) 6)
+(remainder (square (remainder (* 2 (remainder (square (remainder 2 6))
+                                              6)) 6)) 6)
+(remainder (square (remainder (* 2 (remainder (square 2) 6)) 6)) 6)
+(remainder (square (remainder (* 2 (remainder 4 6)) 6)) 6)
+(remainder (square (remainder (* 2 4) 6)) 6)
+(remainder (square (remainder 8 6)) 6)
+(remainder (square 2) 6)
+(remainder 4 6)
+4
+#+END_EXAMPLE
+
 ** guile
 *** use module
     #+BEGIN_SRC scheme
