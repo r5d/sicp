@@ -4,8 +4,10 @@
 
 (define-module (net ricketyspace sicp one twentytwo)
   #:use-module (net ricketyspace sicp utils)
+  #:use-module (srfi srfi-1)
   #:export (timed-prime-test
-            search-for-primes))
+            search-for-primes
+            three-primes-gt))
 
 (define (square x)
   (expt x 2))
@@ -46,3 +48,12 @@
         ((odd-and-prime start)
          (cons start (search-for-primes (1+ start) end)))
         (else (search-for-primes (1+ start) end))))
+
+(define (three-primes-gt n)
+  (three-primes-gt-iter n 10 '()))
+
+(define (three-primes-gt-iter n e l)
+  (cond ((> (length l) 3) (take l 3))
+        (else (three-primes-gt-iter n
+                                    (+ e 10)
+                                    (search-for-primes n e)))))
