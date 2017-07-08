@@ -57,3 +57,6 @@
         (else (three-primes-gt-iter n
                                     (+ e 10)
                                     (search-for-primes n e)))))
+
+(define (three-primes-gt-1000)
+  (three-primes-gt 1000))
