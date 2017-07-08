@@ -7,7 +7,11 @@
   #:use-module (srfi srfi-1)
   #:export (timed-prime-test
             search-for-primes
-            three-primes-gt))
+            three-primes-gt
+            three-primes-gt-1000
+            three-primes-gt-10000
+            three-primes-gt-100000
+            three-primes-gt-1000000))
 
 (define (square x)
   (expt x 2))
