@@ -66,3 +66,6 @@
 
 (define (three-primes-gt-100000)
   (three-primes-gt 100000))
+
+(define (three-primes-gt-1000000)
+  (three-primes-gt 1000000))
