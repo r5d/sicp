@@ -60,3 +60,6 @@
 
 (define (three-primes-gt-1000)
   (three-primes-gt 1000))
+
+(define (three-primes-gt-10000)
+  (three-primes-gt 10000))
