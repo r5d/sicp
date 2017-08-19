@@ -4,7 +4,7 @@
 
 (define-module (net ricketyspace sicp one twentyseven)
   #:use-module (srfi srfi-1)
-  #:export (carmichael-numers-fool-fermat-test?))
+  #:export (carmichael-numbers-fool-fermat-test?))
 
 (define carmichael-numbers '(561 1105 1729 2465 2821 6601))
 
@@ -20,18 +20,14 @@
                     m))))
 
 (define (fermat-test n)
-  (define (try-it a)
+  (define (pass? a)
     (= (expmod a n n) a))
-  (try-it (+ 1 (random (- n 1)))))
+  (fold (lambda (a p) (and (pass? a) p)) #t (iota (1- n) 1)))
 
-(define (fast-prime? n times)
-  (cond ((= times 0) #t)
-        ((fermat-test n) (fast-prime? n (- times 1)))
-        (else #f)))
+(define (prime? n)
+  (if (fermat-test n) #t #f))
 
-(define (carmichael-numers-fool-fermat-test?)
+(define (carmichael-numbers-fool-fermat-test?)
   "Returns #t if all `carmichael-numbers` pass (fool) the fermat test."
-  (let* ((fooled-test? (lambda (n) (fast-prime? n 100000)))
-        (fooled? (lambda (result) (eq? result #t)))
-        (results (map fooled-test? carmichael-numbers)))
-    (every fooled? results)))
+  (define (fooled-test? n) (prime? n))
+  (fold (lambda (n p) (and (fooled-test? n) p)) #t carmichael-numbers))
