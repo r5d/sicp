@@ -49,7 +49,7 @@ and x != m - 1 and x != 1; 0 otherwise."
           (fold (lambda (n p) (and (prime? n) p)) #t numbers))))
 
 (define (even-numbers-pass?)
-  "Return #t if the sample even numbers are detected non-prime"
+  "Return #t if the sample even numbers are detected as non-prime"
   (let ((numbers '(302 640 828 594 804 128 414 12 436 888)))
     (cons "prime-numbers-pass?"
           (fold (lambda (n p) (and (not (prime? n)) p)) #t numbers))))
@@ -61,7 +61,7 @@ and x != m - 1 and x != 1; 0 otherwise."
 
 ;;; Guile REPL
 ;;;
-;;; scheme@(guile-user)> ,re (net ricketyspace sicp one twentyeight)
+;;; scheme@(guile-user)> ,use (net ricketyspace sicp one twentyeight)
 ;;; scheme@(guile-user)> (run-tests)
 ;;; $18 = (("carmichael-numbers-pass?" . #t) ("prime-numbers-pass?" . #t) ("prime-numbers-pass?" . #t))
 
