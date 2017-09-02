@@ -59,4 +59,9 @@ and x != m - 1 and x != 1; 0 otherwise."
                                     prime-numbers-pass?
                                     even-numbers-pass?)))
 
+;;; Guile REPL
+;;;
+;;; scheme@(guile-user)> ,re (net ricketyspace sicp one twentyeight)
+;;; scheme@(guile-user)> (run-tests)
+;;; $18 = (("carmichael-numbers-pass?" . #t) ("prime-numbers-pass?" . #t) ("prime-numbers-pass?" . #t))
 
