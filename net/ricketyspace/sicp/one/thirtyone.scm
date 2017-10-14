@@ -29,18 +29,18 @@
     (product-iter term 1 next n)))
 
 (define (pi precision)
-  (let* ((n (lambda (x) (* (+ (quotient x 2) 1) 2))) ; numerator of term.
-         (d (lambda (x) (+ (* (quotient (1+ x) 2) 2) 1))) ; denominator of term.
-         (term (lambda (x) (/ (* (n x) 1.0) (* (d x) 1.0))))
+  (let* ((n (lambda (x) (if (even? x) (+ x 2) (+ x 1)))) ; numerator of term.
+         (d (lambda (x) (if (even? x) (+ x 1) (+ x 2)))) ; denominator of term.
+         (term (lambda (x) (/ (n x) (d x))))
          (next (lambda (x) (1+ x))))
-    (* (product term 1 next precision) 4)))
+    (* (product term 1.0 next precision) 4)))
 
 (define (pi-iter precision)
-  (let* ((n (lambda (x) (* (+ (quotient x 2) 1) 2))) ; numerator of term.
-         (d (lambda (x) (+ (* (quotient (1+ x) 2) 2) 1))) ; denominator of term.
-         (term (lambda (x) (/ (* (n x) 1.0) (* (d x) 1.0))))
+  (let* ((n (lambda (x) (if (even? x) (+ x 2) (+ x 1)))) ; numerator of term.
+         (d (lambda (x) (if (even? x) (+ x 1) (+ x 2)))) ; denominator of term.
+         (term (lambda (x) (/ (n x) (d x))))
          (next (lambda (x) (1+ x))))
-    (* (product-iter term 1 next precision) 4)))
+    (* (product-iter term 1.0 next precision) 4)))
 
 
 ;;; Guile REPL
