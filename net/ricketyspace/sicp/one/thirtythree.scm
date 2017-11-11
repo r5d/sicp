@@ -18,7 +18,12 @@
 
 (define-module (net ricketyspace sicp one thirtythree)
   #:use-module (net ricketyspace sicp one twentyeight)
-  #:export (filtered-accumulate sum-odd sum-prime-sqrs))
+  #:export (filtered-accumulate sum-odd sum-prime-sqrs product-relative-primes))
+
+(define (gcd a b)
+  (if (= b 0)
+      a
+      (gcd b (remainder a b))))
 
 (define (filtered-accumulate combiner null-value term a next b filter)
   (cond ((> a b) null-value)
@@ -47,6 +52,13 @@ A and B must be an integer greater than zero."
         (term (lambda (x) (* x x)))
         (next (lambda (x) (1+ x))))
     (filtered-accumulate + null-value term a next b prime?)))
+
+(define (product-relative-primes n)
+  (let ((null-value 1)
+        (term (lambda (x) x))
+        (next (lambda (x) (1+ x)))
+        (filter (lambda (x) (= (gcd x n) 1))))
+    (filtered-accumulate * null-value term 1 next n filter)))
 
 
 ;;; Guile REPL
