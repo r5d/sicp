@@ -30,4 +30,3 @@
 ;;; $9 = 0.6180555555555556
 ;;; scheme@(guile-user)> (cont-frac-iter (lambda (i) 1.0) (lambda (i) 1.0) 11)
 ;;; $10 = 0.6180555555555556
-
