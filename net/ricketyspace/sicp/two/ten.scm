@@ -4,7 +4,7 @@
 
 (define-module (net ricketyspace sicp two ten)
   #:use-module (net ricketyspace sicp two seven)
-  #:export (div-interval))
+  #:export (mul-interval div-interval))
 
 (define (mul-interval x y)
   (let ((p1 (* (lower-bound x) (lower-bound y)))
