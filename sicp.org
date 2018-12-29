@@ -459,3 +459,15 @@ applicative order
 (gcd 2 0)
 2
 #+END_EXAMPLE
+** 2
+*** 22
+#+BEGIN_SRC scheme
+(cons ... (cons (cons LIST NUMBER²) NUMBER²) NUMBER²)
+#+END_SRC
+
+creates a list with the squared numbers in a messy nested list like:
+
+#+BEGIN_SRC scheme
+(square-list '(1 2 3 4 5))
+;; $3 = (((((() . 1) . 4) . 9) . 16) . 25)
+#+END_SRC
