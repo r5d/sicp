@@ -27,12 +27,13 @@
 (define (branch-structure branch)
   (car (cdr branch)))
 
+(define (branch-weight b)
+  (let ((bs (branch-structure b)))
+    (cond ((not (pair? bs)) bs)
+          (else (+ (branch-weight (left-branch bs))
+                   (branch-weight (right-branch bs)))))))
+
 (define (total-weight mobile)
-  (define (branch-weight b)
-    (let ((bs (branch-structure b)))
-      (cond ((not (pair? bs)) bs)
-            (else (+ (branch-weight (left-branch bs))
-                     (branch-weight (right-branch bs)))))))
   (+ (branch-weight (left-branch mobile))
      (branch-weight (right-branch mobile))))
 
