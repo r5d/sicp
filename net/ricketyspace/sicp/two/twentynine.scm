@@ -7,7 +7,8 @@
             right-branch
             branch-length
             branch-structure
-            total-weight))
+            total-weight
+            mobile-balanced?))
 
 (define (make-mobile left right)
   (list left right))
@@ -36,6 +37,25 @@
 (define (total-weight mobile)
   (+ (branch-weight (left-branch mobile))
      (branch-weight (right-branch mobile))))
+
+(define (has-submobile? branch)
+  (not (number? (branch-structure branch))))
+
+(define (torque branch)
+  (* (branch-length branch)
+     (branch-weight branch)))
+
+(define (mobile-balanced? m)
+  (let ((lb (left-branch m))
+        (rb (right-branch m)))
+    (and
+     (cond ((has-submobile? lb)
+            (mobile-balanced? (branch-structure lb)))
+           (else #t))
+     (cond ((has-submobile? rb)
+            (mobile-balanced? (branch-structure rb)))
+           (else #t))
+     (= (torque lb) (torque rb)))))
 
 ;;; Guile REPL
 ;;;
