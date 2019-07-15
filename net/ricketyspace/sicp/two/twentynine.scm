@@ -31,31 +31,35 @@
   (define (branch-weight b)
     (let ((bs (branch-structure b)))
       (cond ((not (pair? bs)) bs)
-            (else (branch-weight bs)))))
+            (else (+ (branch-weight (left-branch bs))
+                     (branch-weight (right-branch bs)))))))
   (+ (branch-weight (left-branch mobile))
      (branch-weight (right-branch mobile))))
 
 ;;; Guile REPL
 ;;;
-;;; scheme@(guile-user)> ,re (net ricketyspace sicp two twentynine)
-;;; scheme@(guile-user)> (make-mobile (make-branch 3 45) (make-branch 4 (make-branch 5 50)))
-;;; $4 = ((3 45) (4 (5 50)))
-;;; scheme@(guile-user)> (left-branch $4)
-;;; $5 = (3 45)
-;;; scheme@(guile-user)> (right-branch $4)
-;;; $6 = (4 (5 50))
-;;; scheme@(guile-user)> (branch-length (left-branch $4))
-;;; $7 = 3
-;;; scheme@(guile-user)> (branch-structure (left-branch $4))
-;;; $8 = 45
-;;; scheme@(guile-user)> (branch-length (right-branch $4))
-;;; $9 = 4
-;;; scheme@(guile-user)> (branch-structure (right-branch $4))
-;;; $10 = (5 50)
-;;; scheme@(guile-user)> (branch-length (branch-structure (right-branch $4)))
-;;; $11 = 5
-;;; scheme@(guile-user)> (branch-structure (branch-structure (right-branch $4)))
-;;; $12 = 50
-;;; scheme@(guile-user)> (total-weight $4)
-;;; $14 = 95
-
+;;; scheme@(guile-user)> (make-mobile (make-branch 3 45)
+;;;                                   (make-branch 4
+;;;                                                (make-mobile (make-branch 5 50)
+;;;                                                             (make-branch 1 20))))
+;;; $11 = ((3 45) (4 ((5 50) (1 20))))
+;;; scheme@(guile-user)> (left-branch $11)
+;;; $12 = (3 45)
+;;; scheme@(guile-user)> (right-branch $11)
+;;; $13 = (4 ((5 50) (1 20)))
+;;; scheme@(guile-user)> (branch-length (left-branch $11))
+;;; $14 = 3
+;;; scheme@(guile-user)> (branch-structure (left-branch $11))
+;;; $15 = 45
+;;; scheme@(guile-user)> (branch-length (right-branch $11))
+;;; $16 = 4
+;;; scheme@(guile-user)> (branch-structure (right-branch $11))
+;;; $17 = ((5 50) (1 20))
+;;; scheme@(guile-user)> (branch-structure (right-branch $11))
+;;; $18 = ((5 50) (1 20))
+;;; scheme@(guile-user)> (left-branch (branch-structure (right-branch $11)))
+;;; $19 = (5 50)
+;;; scheme@(guile-user)> (right-branch (branch-structure (right-branch $11)))
+;;; $20 = (1 20)
+;;; scheme@(guile-user)> (total-weight $11)
+;;; $21 = 115
