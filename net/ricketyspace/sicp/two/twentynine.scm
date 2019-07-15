@@ -38,10 +38,11 @@
 
 ;;; Guile REPL
 ;;;
-;;; scheme@(guile-user)> (make-mobile (make-branch 3 45)
-;;;                                   (make-branch 4
-;;;                                                (make-mobile (make-branch 5 50)
-;;;                                                             (make-branch 1 20))))
+;;; scheme@(guile-user)> (make-mobile
+;;;                        (make-branch 3 45)
+;;;                        (make-branch 4
+;;;                                     (make-mobile (make-branch 5 50)
+;;;                                                  (make-branch 1 20))))
 ;;; $11 = ((3 45) (4 ((5 50) (1 20))))
 ;;; scheme@(guile-user)> (left-branch $11)
 ;;; $12 = (3 45)
