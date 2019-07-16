@@ -85,3 +85,60 @@
 ;;; $20 = (1 20)
 ;;; scheme@(guile-user)> (total-weight $11)
 ;;; $21 = 115
+;;;
+;;; scheme@(guile-user)> (make-mobile (make-branch 5 50) (make-branch 5 50))
+;;; $37 = ((5 50) (5 50))
+;;; scheme@(guile-user)> (mobile-balanced? $37)
+;;; $38 = #t
+;;; scheme@(guile-user)> (make-mobile (make-branch 5 50) (make-branch 5 48))
+;;; $39 = ((5 50) (5 48))
+;;; scheme@(guile-user)> (mobile-balanced? $39)
+;;; $40 = #f
+;;; scheme@(guile-user)> (make-mobile (make-branch 6
+;;;                                                (make-mobile (make-branch 2 25)
+;;;                                                             (make-branch 2 25)))
+;;;                                   (make-branch 6 50))
+;;; $41 = ((6 ((2 25) (2 25))) (6 50))
+;;; scheme@(guile-user)> (mobile-balanced? $41)
+;;; $42 = #t
+;;; scheme@(guile-user)> (make-mobile (make-branch 6
+;;;                                                (make-mobile (make-branch 2 24)
+;;;                                                             (make-branch 2 25)))
+;;;                                   (make-branch 6 50))
+;;; $43 = ((6 ((2 24) (2 25))) (6 50))
+;;; scheme@(guile-user)> (mobile-balanced? $43)
+;;; $44 = #f
+;;; scheme@(guile-user)> (make-mobile (make-branch 3
+;;;                           (make-mobile
+;;;                            (make-branch 10
+;;;                                         (make-mobile
+;;;                                          (make-branch 10
+;;;                                                       (make-mobile
+;;;                                                        (make-branch 20 10)
+;;;                                                        (make-branch 10
+;;;                                                                     (make-mobile
+;;;                                                                      (make-branch 2 10)
+;;;                                                                      (make-branch 2 10)))))
+;;;                                          (make-branch 30 10)))
+;;;                            (make-branch 40 10)))
+;;;              (make-branch 3 50))
+;;; $45 = ((3 ((10 ((10 ((20 10) (10 ((2 10) (2 10))))) (30 10))) (40 10))) (3 50))
+;;; scheme@(guile-user)> (mobile-balanced? $45)
+;;; $46 = #t
+;;; scheme@(guile-user)> (make-mobile (make-branch 3
+;;;                           (make-mobile
+;;;                            (make-branch 10
+;;;                                         (make-mobile
+;;;                                          (make-branch 2
+;;;                                                       (make-mobile
+;;;                                                        (make-branch 20 10)
+;;;                                                        (make-branch 10
+;;;                                                                     (make-mobile
+;;;                                                                      (make-branch 2 10)
+;;;                                                                      (make-branch 2 10)))))
+;;;                                          (make-branch 30 10)))
+;;;                            (make-branch 40 10)))
+;;;              (make-branch 3 50))
+;;; $47 = ((3 ((10 ((2 ((20 10) (10 ((2 10) (2 10))))) (30 10))) (40 10))) (3 50))
+;;; scheme@(guile-user)> (mobile-balanced? $47)
+;;; $48 = #f
