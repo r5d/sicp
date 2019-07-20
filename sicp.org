@@ -544,3 +544,33 @@ creates a list with the squared numbers in a messy nested list like:
 (list x y)
 '((1 2 3) (4 5 6))
 #+END_SRC
+*** 29
+**** d
+Everything needs to be changed!
+
+Initially, for =make-mobile=, it used be:
+
+#+BEGIN_SRC scheme
+scheme@(guile-user)> (make-mobile (make-branch 5 50) (make-branch 5 50))
+$37 = ((5 50) (5 50))
+#+END_SRC
+
+Now (using =cons= instead of =list=) it is:
+#+BEGIN_SRC scheme
+scheme@(guile-user)> (make-mobile (make-branch 5 50) (make-branch 5 50))
+$58 = ((5 . 50) 5 . 50)
+#+END_SRC
+
+Initially, for =make-branch=, it used be:
+
+#+BEGIN_SRC scheme
+scheme@(guile-user)> (make-branch 5 (make-mobile (make-branch 3 50) (make-branch 3 50)))
+$61 = (5 ((3 50) (3 50)))
+#+END_SRC
+
+Now (using =cons= instead of =list=) it is:
+
+#+BEGIN_SRC scheme
+scheme@(guile-user)> (make-branch 5 (make-mobile (make-branch 3 50) (make-branch 3 50)))
+$60 = (5 (3 . 50) 3 . 50)
+#+END_SRC
