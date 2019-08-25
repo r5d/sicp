@@ -4,6 +4,9 @@
   #:export (subsets))
 
 (define (subsets s)
+  "All subsets of a Set X (P) is the union of all subsets of CDR of
+Set X (Q) and a subset R derived from the union of CAR X with each of
+the subsets in Q."
   (if (null? s)
       (list '())
       (let ((rest (subsets (cdr s))))
