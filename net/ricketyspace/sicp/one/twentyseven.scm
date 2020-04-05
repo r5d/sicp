@@ -1,10 +1,8 @@
-;;;; Under Creative Commons Attribution-ShareAlike 4.0
-;;;; International. See
-;;;; <https://creativecommons.org/licenses/by-sa/4.0/>.
+;;;; License: CC0-1.0
 
 (define-module (net ricketyspace sicp one twentyseven)
   #:use-module (srfi srfi-1)
-  #:export (carmichael-numbers-fool-fermat-test?))
+  #:export (carmichael-numbers-fool-fermat-test? prime?))
 
 (define carmichael-numbers '(561 1105 1729 2465 2821 6601))
 
