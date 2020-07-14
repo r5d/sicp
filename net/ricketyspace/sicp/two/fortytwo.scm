@@ -3,7 +3,8 @@
 ;;;;
 
 (define-module (net ricketyspace sicp two fortytwo)
-  #:export (safe?))
+  #:export (safe?
+            adjoin-position))
 
 (define (accumulate op initial sequence)
   (if (null? sequence)
@@ -52,3 +53,8 @@
                                  positions)))
       (if (null? in-same-diag) #f #t)))
   (not (or (same-row?) (same-diagonal?))))
+
+
+(define (adjoin-position new-row k rest-of-queens)
+  (let ((queen-at-k (cons new-row k)))
+    (append rest-of-queens (list queen-at-k))))
