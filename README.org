@@ -2,7 +2,7 @@ This is my [[https://mitpress.mit.edu/sicp/][sicp]] sandbox.
 
 * copying
 
-Everything here is under Creative Commons Attribution-ShareAlike 4.0
-International. See <https://creativecommons.org/licenses/by-sa/4.0/>.
+Unless specified otherwise, everything here is under
+[[https://creativecommons.org/licenses/by-sa/4.0/][CC BY-SA 4.0]].
 
 
