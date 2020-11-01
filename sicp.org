@@ -574,3 +574,47 @@ Now (using =cons= instead of =list=) it is:
 scheme@(guile-user)> (make-branch 5 (make-mobile (make-branch 3 50) (make-branch 3 50)))
 $60 = (5 (3 . 50) 3 . 50)
 #+END_SRC
+*** 43
+    I'll measure the the time taken for function ~queens~ to complete
+    by calculating the number of times ~queen-cols~ gets called.
+
+    First, I'm going to see how many times ~queen-cols~ gets called
+    for the original version of ~queens~ with ~board-size=8~
+
+    #+begin_example
+     board-size = 8 ; k = 8  -> 1 * (queen-cols 7)
+                    ; k = 7  -> 1 * (queen-cols 6)
+                    ; k = 6  -> 1 * (queen-cols 5)
+                    ; k = 5  -> 1 * (queen-cols 4)
+                    ; k = 4  -> 1 * (queen-cols 3)
+                    ; k = 3  -> 1 * (queen-cols 2)
+                    ; k = 2  -> 1 * (queen-cols 1)
+                    ; k = 1  -> 1 * (queen-cols 0)
+                    ; k = 0  -> 0
+    #+end_example
+
+    ~queen-cols~ gets called 8 times when ~board-size~ is 8
+
+    To generalize it ~queen-cols~ gets called B times when the
+    ~board-size~ is B.
+
+    Next, I'm going to see how many times ~queen-cols~ gets called for
+    Louis Reasoner's version of the of ~queens~
+
+    #+begin_example
+     board-size = 8 ; k = 8 -> 8 * (queen-cols 7)
+                    ;              k = 7 -> 8 * (queen-cols 6)
+                    ;                           k = 6 -> 8 * (queen-cols 5)
+                    ;                                        k = 5 -> 8 * (queen-cols 4)
+                    ;                                                     k = 4 -> 8 * (queen-cols 3)
+                    ;                                                                   k = 3 -> 8 * (queen-cols 2)
+                    ;                                                                                k = 2 -> 8 * (queen-cols 1)
+                    ;                                                                                              k = 1 -> 8 * (queen-cols 0)
+                    ;                                                                                                           k = 0 -> 0 
+    #+end_example
+
+    Here, the ~queen-cols~ is getting called ~8^8~ times or ~B^B~
+    times when the ~board-size is B.
+
+    From above, if the original version of ~queens~ took time ~T~,
+    then Louis's version will take ~T^T~ to finish.
