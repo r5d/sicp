@@ -6,9 +6,3 @@ the `net` directory.
 Exercises from 2.44 are written in Racket. These are under `ex`
 directory.
 
-* copying
-
-Unless specified otherwise, everything here is under
-[[https://creativecommons.org/licenses/by-sa/4.0/][CC BY-SA 4.0]].
-
-
