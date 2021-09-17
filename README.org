@@ -3,6 +3,6 @@ This is my [[https://mitpress.mit.edu/sicp/][sicp]] sandbox.
 Exercises until 2.42 are written in GNU Guile Scheme. These are under
 the =net= directory.
 
-Exercises from 2.44 are written in Racket. These are under =ex=
+Exercises from 2.44 are written in Racket. These are under the =ex=
 directory.
 
