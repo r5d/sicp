@@ -6,3 +6,9 @@ the =net= directory.
 Exercises from 2.44 are written in Racket. These are under the =ex=
 directory.
 
+Racket dependencies:
+
+#+begin_src sh
+raco pkg install sicp
+raco pkg install rackunit
+#+end_src
