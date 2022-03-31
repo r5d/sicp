@@ -71,550 +71,550 @@ replaced by more refined models.
     #+BEGIN_SRC scheme
     (use-modules (some thing))
     #+END_SRC
-* exercises
-** 1
-*** 4
+** exercises
+*** 1
+**** 4
 
-    #+BEGIN_SRC scheme
-    (define (a-plus-abs-b a b)
-      ((if (> b 0) + -) a b))
-    #+END_SRC
+     #+BEGIN_SRC scheme
+     (define (a-plus-abs-b a b)
+       ((if (> b 0) + -) a b))
+     #+END_SRC
 
-If ~b~ is greater than 0, do ~a + b~; otherwise do ~a - b~.
-*** 5
+ If ~b~ is greater than 0, do ~a + b~; otherwise do ~a - b~.
+**** 5
 
-code at [[./one/five.scm]]
+ code at [[./one/five.scm]]
 
-If the interpreter uses *applicative order* to evaluate the
-expression:
+ If the interpreter uses *applicative order* to evaluate the
+ expression:
 
-#+BEGIN_SRC scheme
-(test 0 (p))
-#+END_SRC
+ #+BEGIN_SRC scheme
+ (test 0 (p))
+ #+END_SRC
 
-The parameters are evaluated before applying the compound procedure
-~test~; 0 evaluates to 0, ~(p)~ never finishes evaluating as the
-compound procedure ~p~ recursively calls itself again and again
-infinitely.
+ The parameters are evaluated before applying the compound procedure
+ ~test~; 0 evaluates to 0, ~(p)~ never finishes evaluating as the
+ compound procedure ~p~ recursively calls itself again and again
+ infinitely.
 
-If same expression is evaluated by the interpreter using *normal
-order*, the expression will be expanded to
+ If same expression is evaluated by the interpreter using *normal
+ order*, the expression will be expanded to
 
-#+BEGIN_SRC scheme
-  (if (= 0 0)
-      0
-      (p)))
-#+END_SRC
+ #+BEGIN_SRC scheme
+   (if (= 0 0)
+       0
+       (p)))
+ #+END_SRC
 
-and will evaluate to ~0~.
-*** 6
-    If I've understood it correctly, scheme uses applicative-order
-    evaluation, meaning, it evaluates the operands before appling the
-    procedure.
+ and will evaluate to ~0~.
+**** 6
+     If I've understood it correctly, scheme uses applicative-order
+     evaluation, meaning, it evaluates the operands before appling the
+     procedure.
 
-    In the case when ~new-if~ used in the ~sqrt-iter~ procedure, the
-    operands/arguments for the ~new-if~ -- ~(good-enough? guess x)~,
-    ~guess~, ~(sqrt-iter (improve guess x) x)~ -- are evaluated. Due
-    to the last operand, which is a call to the ~sqrt-iter~ procedure,
-    we get into infinite loop of evaluating the ~sqrt-iter~ procedure
-    again and again.
-*** 7
+     In the case when ~new-if~ used in the ~sqrt-iter~ procedure, the
+     operands/arguments for the ~new-if~ -- ~(good-enough? guess x)~,
+     ~guess~, ~(sqrt-iter (improve guess x) x)~ -- are evaluated. Due
+     to the last operand, which is a call to the ~sqrt-iter~ procedure,
+     we get into infinite loop of evaluating the ~sqrt-iter~ procedure
+     again and again.
+**** 7
 
-The following list show the tolerance value and the corresponding
-square root of 0.1 computed with that tolerance value.
+ The following list show the tolerance value and the corresponding
+ square root of 0.1 computed with that tolerance value.
 
-#+BEGIN_EXAMPLE
-((0.001 . 0.316245562280389)
-(1.0e-4 . 0.316245562280389)
-(1.0e-5 . 0.31622776651756745)
-(1.0000000000000002e-6 . 0.31622776651756745)
-(1.0000000000000002e-7 . 0.31622776651756745)
-(1.0000000000000002e-8 . 0.31622776651756745)
-(1.0000000000000003e-9 . 0.31622776651756745)
-1.0000000000000003e-10 . 0.31622776601683794)
-#+END_EXAMPLE
+ #+BEGIN_EXAMPLE
+ ((0.001 . 0.316245562280389)
+ (1.0e-4 . 0.316245562280389)
+ (1.0e-5 . 0.31622776651756745)
+ (1.0000000000000002e-6 . 0.31622776651756745)
+ (1.0000000000000002e-7 . 0.31622776651756745)
+ (1.0000000000000002e-8 . 0.31622776651756745)
+ (1.0000000000000003e-9 . 0.31622776651756745)
+ 1.0000000000000003e-10 . 0.31622776601683794)
+ #+END_EXAMPLE
 
-Guile's =sqrt= function says the square root of 0.1 is
-0.31622776601683794:
-#+BEGIN_SRC scheme
-scheme@(guile-user)> (sqrt 0.1)
-$7 = 0.31622776601683794
-#+END_SRC
+ Guile's =sqrt= function says the square root of 0.1 is
+ 0.31622776601683794:
+ #+BEGIN_SRC scheme
+ scheme@(guile-user)> (sqrt 0.1)
+ $7 = 0.31622776601683794
+ #+END_SRC
 
-From above, it can be observed that the only when the tolerance value
-for the =good-enough?= function is ~1.0e-10, does the square root of
-0.1 produced by our custom square root function matches the value
-produced by Guile's =sqrt= function.
+ From above, it can be observed that the only when the tolerance value
+ for the =good-enough?= function is ~1.0e-10, does the square root of
+ 0.1 produced by our custom square root function matches the value
+ produced by Guile's =sqrt= function.
 
-If the =good-enough?= is changed such that it returns =true= if the
-difference between the present guess and the previous guess is less
-than or equal to 0.001, the sqrt function yields 0.31622776651756745
-for sqrt(0.1).
+ If the =good-enough?= is changed such that it returns =true= if the
+ difference between the present guess and the previous guess is less
+ than or equal to 0.001, the sqrt function yields 0.31622776651756745
+ for sqrt(0.1).
 
-#+BEGIN_SRC scheme
-scheme@(guile-user)> (sqrt-sicp-alt 0.1)
-$9 = 0.31622776651756745
-#+END_SRC
+ #+BEGIN_SRC scheme
+ scheme@(guile-user)> (sqrt-sicp-alt 0.1)
+ $9 = 0.31622776651756745
+ #+END_SRC
 
-0.31622776651756745 is more precise than 0.316245562280389 (the answer
-returned by the custom sqrt function that uses the ol' =good-enough=
-function) but not as precise as the answer returned by the guile's
-sqrt function.
+ 0.31622776651756745 is more precise than 0.316245562280389 (the answer
+ returned by the custom sqrt function that uses the ol' =good-enough=
+ function) but not as precise as the answer returned by the guile's
+ sqrt function.
 
-For a number as large as 1000000000, guile's =sqrt= function and
-=sqrt-sicp-alt= returns 31622.776601683792, =sqrt-sicp= returns
-31622.776601684047; =sqrt-sicp= being slightly more precise than the
-other functions.
-*** 9
-**** recursive process
+ For a number as large as 1000000000, guile's =sqrt= function and
+ =sqrt-sicp-alt= returns 31622.776601683792, =sqrt-sicp= returns
+ 31622.776601684047; =sqrt-sicp= being slightly more precise than the
+ other functions.
+**** 9
+***** recursive process
 
-#+BEGIN_SRC scheme
-(define (+ a b)
-  (if (= a 0)
-      b
-      (inc (+ dec a) b)))
-#+END_SRC
+ #+BEGIN_SRC scheme
+ (define (+ a b)
+   (if (= a 0)
+       b
+       (inc (+ dec a) b)))
+ #+END_SRC
 
-#+BEGIN_SRC
-(+ 4 5)    ----+
-(inc (+ 3 5))  |----+
-(inc (inc (+ 2 5))) |------+
-(inc (inc (inc (+ 1 5))))  |------+
-(inc (inc (inc (inc (+ 0 5)))))   |
-(inc (inc (inc (inc 5)))) +-------+
-(inc (inc (inc 6))) +-----|
-(inc (inc 7)) +-----|
-(inc 8) +-----|
-9 <-----|
-#+END_SRC
+ #+BEGIN_SRC
+ (+ 4 5)    ----+
+ (inc (+ 3 5))  |----+
+ (inc (inc (+ 2 5))) |------+
+ (inc (inc (inc (+ 1 5))))  |------+
+ (inc (inc (inc (inc (+ 0 5)))))   |
+ (inc (inc (inc (inc 5)))) +-------+
+ (inc (inc (inc 6))) +-----|
+ (inc (inc 7)) +-----|
+ (inc 8) +-----|
+ 9 <-----|
+ #+END_SRC
 
-**** iterative process
+***** iterative process
 
-#+BEGIN_SRC scheme
-(define (+ a b)
-  (if (= a 0)
-      b
-      (+ (dec a) (inc b))))
-#+END_SRC
+ #+BEGIN_SRC scheme
+ (define (+ a b)
+   (if (= a 0)
+       b
+       (+ (dec a) (inc b))))
+ #+END_SRC
 
-#+BEGIN_SRC
-(+ 4 5 --+
-(+ 3 6)  |
-(+ 2 7)  |
-(+ 1 8)  |
-(+ 0 9)  |
-9 <------+
-#+END_SRC
-*** 10
-#+BEGIN_SRC scheme
-(define (A x y)
-  (cond ((= y 0) 0)
-        ((= x 0) (* 2 y))
-        ((= y 1) 2)
-        (else (A (- x 1)
-                 (A x (- y 1))))))
-#+END_SRC
+ #+BEGIN_SRC
+ (+ 4 5 --+
+ (+ 3 6)  |
+ (+ 2 7)  |
+ (+ 1 8)  |
+ (+ 0 9)  |
+ 9 <------+
+ #+END_SRC
+**** 10
+ #+BEGIN_SRC scheme
+ (define (A x y)
+   (cond ((= y 0) 0)
+         ((= x 0) (* 2 y))
+         ((= y 1) 2)
+         (else (A (- x 1)
+                  (A x (- y 1))))))
+ #+END_SRC
 
-**** (A 1 10) = 2^y
+***** (A 1 10) = 2^y
 
-#+BEGIN_SRC scheme
-(A 1 10)
-(A 0 (A 1 9))
-(A 0 (A 0 (A 1 8)))
-(A 0 (A 0 (A 0 (A 1 7))))
-(A 0 (A 0 (A 0 (A 0 (A 1 6)))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 1 5))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 4)))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 3))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 2)))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 1))))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 2)))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 4))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 8)))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 16))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 32)))))
-(A 0 (A 0 (A 0 (A 0 64))))
-(A 0 (A 0 (A 0 128)))
-(A 0 (A 0 256))
-(A 0 512)
-1024
-#+END_SRC
+ #+BEGIN_SRC scheme
+ (A 1 10)
+ (A 0 (A 1 9))
+ (A 0 (A 0 (A 1 8)))
+ (A 0 (A 0 (A 0 (A 1 7))))
+ (A 0 (A 0 (A 0 (A 0 (A 1 6)))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 5))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 4)))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 3))))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 2)))))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 1))))))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 2)))))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 4))))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 8)))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 16))))))
+ (A 0 (A 0 (A 0 (A 0 (A 0 32)))))
+ (A 0 (A 0 (A 0 (A 0 64))))
+ (A 0 (A 0 (A 0 128)))
+ (A 0 (A 0 256))
+ (A 0 512)
+ 1024
+ #+END_SRC
 
-At this point, I'm guessing function ~A = 2^xy~.
+ At this point, I'm guessing function ~A = 2^xy~.
 
-After some thinking, I don't think it is ~A = 2^xy~. I'm guessing it
-is ~A = 2x2^y~.
+ After some thinking, I don't think it is ~A = 2^xy~. I'm guessing it
+ is ~A = 2x2^y~.
 
-**** (A 2 4)
-#+BEGIN_SRC scheme
-(A 2 4)
-(A 1 (A 2 3))
-(A 1 (A 1 (A 2 2)))
-(A 1 (A 1 (A 1 (A 2 1))))
-(A 1 (A 1 (A 1 2)))
-(A 1 (A 1 (A 0 (A 1 1))))
-(A 1 (A 1 (A 0 2)))
-(A 1 (A 1 4))
-(A 1 (A 0 (A 1 3)))
-(A 1 (A 0 (A 0 (A 1 2))))
-(A 1 (A 0 (A 0 (A 0 (A 1 1)))))
-(A 1 (A 0 (A 0 (A 0 2))))
-(A 1 (A 0 (A 0 4)))
-(A 1 (A 0 8))
-(A 1 16)
-2^16 = (expt 2 16) =  65536
-#+END_SRC
+***** (A 2 4)
+ #+BEGIN_SRC scheme
+ (A 2 4)
+ (A 1 (A 2 3))
+ (A 1 (A 1 (A 2 2)))
+ (A 1 (A 1 (A 1 (A 2 1))))
+ (A 1 (A 1 (A 1 2)))
+ (A 1 (A 1 (A 0 (A 1 1))))
+ (A 1 (A 1 (A 0 2)))
+ (A 1 (A 1 4))
+ (A 1 (A 0 (A 1 3)))
+ (A 1 (A 0 (A 0 (A 1 2))))
+ (A 1 (A 0 (A 0 (A 0 (A 1 1)))))
+ (A 1 (A 0 (A 0 (A 0 2))))
+ (A 1 (A 0 (A 0 4)))
+ (A 1 (A 0 8))
+ (A 1 16)
+ 2^16 = (expt 2 16) =  65536
+ #+END_SRC
 
-**** (A 3 3)
-#+BEGIN_SRC scheme
-(A 3 3)
-(A 2 (A 3 2))
-(A 2 (A 2 (A 3 1)))
-(A 2 (A 2 2))
-(A 2 (A 1 (A 2 1)))
-(A 2 (A 1 2))
-(A 2 (A 0 (A 1 1)))
-(A 2 (A 0 2))
-(A 2 4)
-(A 1 (A 2 3))
-(A 1 (A 1 (A 2 2)))
-(A 1 (A 1 (A 1 (A 2 1))))
-(A 1 (A 1 (A 1 2)))
-(A 1 (A 1 (A 0 (A 1 1))))
-(A 1 (A 1 (A 0 2)))
-(A 1 (A 1 4))
-(A 1 (A 0 (A 1 3)))
-(A 1 (A 0 (A 0 (A 1 2))))
-(A 1 (A 0 (A 0 (A 0 (A 1 1)))))
-(A 1 (A 0 (A 0 (A 0 2))))
-(A 1 (A 0 (A 0 4)))
-(A 1 (A 0 8))
-(A 1 16)
-2^16 = (expt 2 16) =  65536
-#+END_SRC
+***** (A 3 3)
+ #+BEGIN_SRC scheme
+ (A 3 3)
+ (A 2 (A 3 2))
+ (A 2 (A 2 (A 3 1)))
+ (A 2 (A 2 2))
+ (A 2 (A 1 (A 2 1)))
+ (A 2 (A 1 2))
+ (A 2 (A 0 (A 1 1)))
+ (A 2 (A 0 2))
+ (A 2 4)
+ (A 1 (A 2 3))
+ (A 1 (A 1 (A 2 2)))
+ (A 1 (A 1 (A 1 (A 2 1))))
+ (A 1 (A 1 (A 1 2)))
+ (A 1 (A 1 (A 0 (A 1 1))))
+ (A 1 (A 1 (A 0 2)))
+ (A 1 (A 1 4))
+ (A 1 (A 0 (A 1 3)))
+ (A 1 (A 0 (A 0 (A 1 2))))
+ (A 1 (A 0 (A 0 (A 0 (A 1 1)))))
+ (A 1 (A 0 (A 0 (A 0 2))))
+ (A 1 (A 0 (A 0 4)))
+ (A 1 (A 0 8))
+ (A 1 16)
+ 2^16 = (expt 2 16) =  65536
+ #+END_SRC
 
-**** (A 2 5)
+***** (A 2 5)
 
-#+BEGIN_SRC scheme
-(A 2 5)
-(A 1 (A 2 4))
-(A 1 (A 1 (A 2 3)))
-(A 1 (A 1 (A 1 (A 2 2))))
-(A 1 (A 1 (A 1 (A 1 (A 2 1)))))
-(A 1 (A 1 (A 1 (A 1 2))))
-(A 1 (A 1 (A 1 (A 0 (A 1 1)))))
-(A 1 (A 1 (A 1 (A 0 2))))
-(A 1 (A 1 (A 1 4)))
-(A 1 (A 1 16))
-(A 1 65536)
-2^65536
-#+END_SRC
+ #+BEGIN_SRC scheme
+ (A 2 5)
+ (A 1 (A 2 4))
+ (A 1 (A 1 (A 2 3)))
+ (A 1 (A 1 (A 1 (A 2 2))))
+ (A 1 (A 1 (A 1 (A 1 (A 2 1)))))
+ (A 1 (A 1 (A 1 (A 1 2))))
+ (A 1 (A 1 (A 1 (A 0 (A 1 1)))))
+ (A 1 (A 1 (A 1 (A 0 2))))
+ (A 1 (A 1 (A 1 4)))
+ (A 1 (A 1 16))
+ (A 1 65536)
+ 2^65536
+ #+END_SRC
 
-**** (A 2 6)
+***** (A 2 6)
 
-#+BEGIN_SRC scheme
-(A 2 6)
-(A 1 (A 2 5))
-(A 1 (A 1 (A 2 4)))
-(A 1 (A 1 (A 1 (A 2 3))))
-(A 1 (A 1 (A 1 (A 1 (A 2 2)))))
-(A 1 (A 1 (A 1 (A 1 (A 1 (A 2 1))))))
-(A 1 (A 1 (A 1 (A 1 (A 1 2)))))
-(A 1 (A 1 (A 1 (A 1 4))))
-(A 1 (A 1 (A 1 16)))
-(A 1 (A 1 65536))
-(A 1 2^65536)
-2^(2^65536)
-#+END_SRC
-**** mathematical definitions for
-***** (define (f n) (A 0 n))
-=(f n)= computes  =(* 2 n)=
-***** (define (g n) (A 1 n))
-=(g n)= computes  =(expt 2 n)=
-***** (define (h n) (A 2 n))
-=(h n)= computes  =(expt 2 (h (1- n)))=
-***** (define (k n) (* 5 n n))
-=(k n)= computes  =(* 5 n n)=
-*** 11
-I could not come up with a an iterative procedure.
+ #+BEGIN_SRC scheme
+ (A 2 6)
+ (A 1 (A 2 5))
+ (A 1 (A 1 (A 2 4)))
+ (A 1 (A 1 (A 1 (A 2 3))))
+ (A 1 (A 1 (A 1 (A 1 (A 2 2)))))
+ (A 1 (A 1 (A 1 (A 1 (A 1 (A 2 1))))))
+ (A 1 (A 1 (A 1 (A 1 (A 1 2)))))
+ (A 1 (A 1 (A 1 (A 1 4))))
+ (A 1 (A 1 (A 1 16)))
+ (A 1 (A 1 65536))
+ (A 1 2^65536)
+ 2^(2^65536)
+ #+END_SRC
+***** mathematical definitions for
+****** (define (f n) (A 0 n))
+ =(f n)= computes  =(* 2 n)=
+****** (define (g n) (A 1 n))
+ =(g n)= computes  =(expt 2 n)=
+****** (define (h n) (A 2 n))
+ =(h n)= computes  =(expt 2 (h (1- n)))=
+****** (define (k n) (* 5 n n))
+ =(k n)= computes  =(* 5 n n)=
+**** 11
+ I could not come up with a an iterative procedure.
 
-two versions of the recursive procedure are available at
-one/eleven.scm.
-*** 12
+ two versions of the recursive procedure are available at
+ one/eleven.scm.
+**** 12
 
-#+BEGIN_SRC
-              1
-             1 1
-            1 2 1
-           1 3 3 1
-          1 4 6 4 1
-         1 5 10 10 5 1
-        1   6 15 20 15 6 1
-       1 7   21  35  35  21  7  1
-      1   8   28  56  70  56  28 8 1
-     1  9  36  84  126 126 84  36 9 1
-    1 10 45 120 210 252 210 120 45 10 1
-   1 11 55 165 330 462 462 330 165 55  11  1
-   1  12  66   220  495  792  924  792  495  220 66 12 1
- 1  13 78  286  715  1287 1716 1716 1287 715  286 78 13 1
-1 14 91 364 1001 2002 3003 3432 3003 2002 1001 364 91 14 1
-#+END_SRC
-*** 20
+ #+BEGIN_SRC
+               1
+              1 1
+             1 2 1
+            1 3 3 1
+           1 4 6 4 1
+          1 5 10 10 5 1
+         1   6 15 20 15 6 1
+	1 7   21  35  35  21  7  1
+       1   8   28  56  70  56  28 8 1
+      1  9  36  84  126 126 84  36 9 1
+     1 10 45 120 210 252 210 120 45 10 1
+    1 11 55 165 330 462 462 330 165 55  11  1
+    1  12  66   220  495  792  924  792  495  220 66 12 1
+  1  13 78  286  715  1287 1716 1716 1287 715  286 78 13 1
+ 1 14 91 364 1001 2002 3003 3432 3003 2002 1001 364 91 14 1
+ #+END_SRC
+**** 20
 
-#+BEGIN_SRC scheme
-(define (gcd a b)
-  (if (= b 0)
-      a
-      (gcd b (remainder a b))))
-#+END_SRC
+ #+BEGIN_SRC scheme
+ (define (gcd a b)
+   (if (= b 0)
+       a
+       (gcd b (remainder a b))))
+ #+END_SRC
 
 
-#+BEGIN_EXAMPLE
-normal order - no. of calls to remainder - 14
-applicative order - no. of calls to remainder - 4
-#+END_EXAMPLE
+ #+BEGIN_EXAMPLE
+ normal order - no. of calls to remainder - 14
+ applicative order - no. of calls to remainder - 4
+ #+END_EXAMPLE
 
-#+BEGIN_EXAMPLE
-normal order
-(gcd 206 40)
+ #+BEGIN_EXAMPLE
+ normal order
+ (gcd 206 40)
 
- (= (= 40 0)) # #f
+  (= (= 40 0)) # #f
 
-(gcd 40 (remainder 206 40))
+ (gcd 40 (remainder 206 40))
 
- ;; 1 call here.
- (= (remainder 206 40) 0)
- (= (6 0))
+  ;; 1 call here.
+  (= (remainder 206 40) 0)
+  (= (6 0))
 
-(gcd (remainder 206 40) (remainder 40 (remainder 206 40)))
+ (gcd (remainder 206 40) (remainder 40 (remainder 206 40)))
 
- ;; 2 calls here.
- (= (remainder 40 (remainder 206 40)) 0)
- (= (remainder 40 6) 0)
- (= 4 0)
+  ;; 2 calls here.
+  (= (remainder 40 (remainder 206 40)) 0)
+  (= (remainder 40 6) 0)
+  (= 4 0)
 
-(gcd (remainder 40 (remainder 206 40))
-     (remainder (remainder 206 40)
-                (remainder 40 (remainder 206 40))))
+ (gcd (remainder 40 (remainder 206 40))
+      (remainder (remainder 206 40)
+                 (remainder 40 (remainder 206 40))))
+
+  ;; 4 calls here.
+  (= (remainder (remainder 206 40)
+		(remainder 40 (remainder 206 40))) 0)
+  (= (remainder (remainder 206 40)
+		(remainder 40 6)) 0)
+  (= (remainder 6 4) 0)
+  (= 2 0)
+
+ (gcd (remainder (remainder 206 40)
+                 (remainder 40 (remainder 206 40)))
+      (remainder (remainder 40 (remainder 206 40))
+                 (remainder (remainder 206 40)
+                            (remainder 40 (remainder 206 40)))))
+
+  ;; 7 calls here.
+  (= (remainder (remainder 40 (remainder 206 40))
+                 (remainder (remainder 206 40)
+                            (remainder 40 (remainder 206 40)))) 0)
+  (= (remainder (remainder 40 (remainder 206 40))
+		(remainder (remainder 206 40)
+                           (remainder 40 6))) 0)
+  (= (remainder (remainder 40 (remainder 206 40))
+		(remainder (remainder 206 40)
+                           4)) 0)
+  (= (remainder (remainder 40 (remainder 206 40))
+		(remainder 6
+                           4)) 0)
+  (= (remainder (remainder 40 (remainder 206 40))
+		2) 0)
+  (= (remainder (remainder 40 6)
+		2) 0)
+  (= (remainder 4
+		2) 0)
+  (= 0 0)
 
  ;; 4 calls here.
- (= (remainder (remainder 206 40)
-               (remainder 40 (remainder 206 40))) 0)
- (= (remainder (remainder 206 40)
-               (remainder 40 6)) 0)
- (= (remainder 6 4) 0)
- (= 2 0)
+ (remainder (remainder 206 40)
+            (remainder 40 (remainder 206 40)))
+ (remainder (remainder 206 40)
+            (remainder 40 6))
+ (remainder (remainder 206 40)
+            (remainder 40 6))
+ (remainder (remainder 206 40)
+            4)
+ (remainder 6
+            4)
+ 2 ; (+ 1 2 4 7 4) => 14 calls in total.
+ #+END_EXAMPLE
 
-(gcd (remainder (remainder 206 40)
-                (remainder 40 (remainder 206 40)))
-     (remainder (remainder 40 (remainder 206 40))
-                (remainder (remainder 206 40)
-                           (remainder 40 (remainder 206 40)))))
+ #+BEGIN_EXAMPLE
+ applicative order
+ (gcd 206 40)
+ (gcd 40 (remainder 206 40))
+ (gcd 40 6)
+ (gcd 6 (remainder 40 6))
+ (gcd 6 4)
+ (gcd 4 (remainder 6 4))
+ (gcd 4 2)
+ (gcd 2 (remainder 4 2))
+ (gcd 2 0)
+ 2
+ #+END_EXAMPLE
+*** 2
+**** 22
+ #+BEGIN_SRC scheme
+ (cons ... (cons (cons LIST NUMBER²) NUMBER²) NUMBER²)
+ #+END_SRC
 
- ;; 7 calls here.
- (= (remainder (remainder 40 (remainder 206 40))
-                (remainder (remainder 206 40)
-                           (remainder 40 (remainder 206 40)))) 0)
- (= (remainder (remainder 40 (remainder 206 40))
-               (remainder (remainder 206 40)
-                          (remainder 40 6))) 0)
- (= (remainder (remainder 40 (remainder 206 40))
-               (remainder (remainder 206 40)
-                          4)) 0)
- (= (remainder (remainder 40 (remainder 206 40))
-               (remainder 6
-                          4)) 0)
- (= (remainder (remainder 40 (remainder 206 40))
-               2) 0)
- (= (remainder (remainder 40 6)
-               2) 0)
- (= (remainder 4
-               2) 0)
- (= 0 0)
+ creates a list with the squared numbers in a messy nested list like:
 
-;; 4 calls here.
-(remainder (remainder 206 40)
-           (remainder 40 (remainder 206 40)))
-(remainder (remainder 206 40)
-           (remainder 40 6))
-(remainder (remainder 206 40)
-           (remainder 40 6))
-(remainder (remainder 206 40)
-           4)
-(remainder 6
-           4)
-2 ; (+ 1 2 4 7 4) => 14 calls in total.
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-applicative order
-(gcd 206 40)
-(gcd 40 (remainder 206 40))
-(gcd 40 6)
-(gcd 6 (remainder 40 6))
-(gcd 6 4)
-(gcd 4 (remainder 6 4))
-(gcd 4 2)
-(gcd 2 (remainder 4 2))
-(gcd 2 0)
-2
-#+END_EXAMPLE
-** 2
-*** 22
-#+BEGIN_SRC scheme
-(cons ... (cons (cons LIST NUMBER²) NUMBER²) NUMBER²)
-#+END_SRC
-
-creates a list with the squared numbers in a messy nested list like:
-
-#+BEGIN_SRC scheme
-(square-list '(1 2 3 4 5))
-;; $3 = (((((() . 1) . 4) . 9) . 16) . 25)
-#+END_SRC
-*** 24
-#+BEGIN_EXAMPLE
-(1 (2 (3 4)))
+ #+BEGIN_SRC scheme
+ (square-list '(1 2 3 4 5))
+ ;; $3 = (((((() . 1) . 4) . 9) . 16) . 25)
+ #+END_SRC
+**** 24
+ #+BEGIN_EXAMPLE
+ (1 (2 (3 4)))
 
 
-   +----+----+      +----+----+      +----+----+      +----+----+
-   | o  | o--|----->| o  | o--|----->| o  | o--|----->| o  | /  |
-   +----+----+      +----+----+      +----+----+      +----+----+
-     |                |                |                |
-     |                |                |                |
-     v                v                v                v
-   +----+           +----+           +----+           +----+
-   | 1  |           | 2  |           | 3  |           | 4  |
-   +----+           +----+           +----+           +----+
+    +----+----+      +----+----+      +----+----+      +----+----+
+    | o  | o--|----->| o  | o--|----->| o  | o--|----->| o  | /  |
+    +----+----+      +----+----+      +----+----+      +----+----+
+      |                |                |                |
+      |                |                |                |
+      v                v                v                v
+    +----+           +----+           +----+           +----+
+    | 1  |           | 2  |           | 3  |           | 4  |
+    +----+           +----+           +----+           +----+
 
 
-                              (1 (2 (3 4)))
-                              o
-                             / \
-                            /   \
-                           /     \
-                          /       \
-                         /         \
-                        1           \
-                                     \  (2 (3 4))
-                                      o
-                                     / \
-                                    /   \
-                                   /     \
-                                  /       \
-                                 /         \
-                                /           \
-                               2             \
-                                              \ (3 4)
-                                               o
-                                              / \
-                                             /   \
-                                            /     \
-                                           /       \
-                                          /         \
-                                         /           \
-                                        3             4
-#+END_EXAMPLE
-*** 25
-#+BEGIN_SRC scheme
-(define one '(1 3 (5 7) 9))
+                               (1 (2 (3 4)))
+                               o
+                              / \
+                             /   \
+                            /     \
+                           /       \
+                          /         \
+                         1           \
+                                      \  (2 (3 4))
+                                       o
+                                      / \
+                                     /   \
+                                    /     \
+                                   /       \
+                                  /         \
+                                 /           \
+				2             \
+                                               \ (3 4)
+						o
+                                               / \
+                                              /   \
+                                             /     \
+                                            /       \
+                                           /         \
+                                          /           \
+                                         3             4
+ #+END_EXAMPLE
+**** 25
+ #+BEGIN_SRC scheme
+ (define one '(1 3 (5 7) 9))
 
-(car (cdr (car (cdr (cdr one)))))
-#+END_SRC
-#+BEGIN_SRC scheme
-(define two '((7)))
+ (car (cdr (car (cdr (cdr one)))))
+ #+END_SRC
+ #+BEGIN_SRC scheme
+ (define two '((7)))
 
-(car (car two))
-#+END_SRC
-#+BEGIN_SRC scheme
-(define three '(1 (2 (3 (4 (5 (6 7)))))))
+ (car (car two))
+ #+END_SRC
+ #+BEGIN_SRC scheme
+ (define three '(1 (2 (3 (4 (5 (6 7)))))))
 
-(car (cdr (car (cdr (car (cdr (car (cdr (car (cdr (car (cdr three))))))))))))
-#+END_SRC
-*** 26
-#+BEGIN_SRC scheme
-(define x (list 1 2 3))
-(define y (list 4 5 6))
+ (car (cdr (car (cdr (car (cdr (car (cdr (car (cdr (car (cdr three))))))))))))
+ #+END_SRC
+**** 26
+ #+BEGIN_SRC scheme
+ (define x (list 1 2 3))
+ (define y (list 4 5 6))
 
-(append x y)
-'(1 2 3 4 5 6)
+ (append x y)
+ '(1 2 3 4 5 6)
 
-(cons x y)
-'((1 2 3) (4 5 6))
+ (cons x y)
+ '((1 2 3) (4 5 6))
 
-(list x y)
-'((1 2 3) (4 5 6))
-#+END_SRC
-*** 29
-**** d
-Everything needs to be changed!
+ (list x y)
+ '((1 2 3) (4 5 6))
+ #+END_SRC
+**** 29
+***** d
+ Everything needs to be changed!
 
-Initially, for =make-mobile=, it used be:
+ Initially, for =make-mobile=, it used be:
 
-#+BEGIN_SRC scheme
-scheme@(guile-user)> (make-mobile (make-branch 5 50) (make-branch 5 50))
-$37 = ((5 50) (5 50))
-#+END_SRC
+ #+BEGIN_SRC scheme
+ scheme@(guile-user)> (make-mobile (make-branch 5 50) (make-branch 5 50))
+ $37 = ((5 50) (5 50))
+ #+END_SRC
 
-Now (using =cons= instead of =list=) it is:
-#+BEGIN_SRC scheme
-scheme@(guile-user)> (make-mobile (make-branch 5 50) (make-branch 5 50))
-$58 = ((5 . 50) 5 . 50)
-#+END_SRC
+ Now (using =cons= instead of =list=) it is:
+ #+BEGIN_SRC scheme
+ scheme@(guile-user)> (make-mobile (make-branch 5 50) (make-branch 5 50))
+ $58 = ((5 . 50) 5 . 50)
+ #+END_SRC
 
-Initially, for =make-branch=, it used be:
+ Initially, for =make-branch=, it used be:
 
-#+BEGIN_SRC scheme
-scheme@(guile-user)> (make-branch 5 (make-mobile (make-branch 3 50) (make-branch 3 50)))
-$61 = (5 ((3 50) (3 50)))
-#+END_SRC
+ #+BEGIN_SRC scheme
+ scheme@(guile-user)> (make-branch 5 (make-mobile (make-branch 3 50) (make-branch 3 50)))
+ $61 = (5 ((3 50) (3 50)))
+ #+END_SRC
 
-Now (using =cons= instead of =list=) it is:
+ Now (using =cons= instead of =list=) it is:
 
-#+BEGIN_SRC scheme
-scheme@(guile-user)> (make-branch 5 (make-mobile (make-branch 3 50) (make-branch 3 50)))
-$60 = (5 (3 . 50) 3 . 50)
-#+END_SRC
-*** 43
-    I'll measure the the time taken for function ~queens~ to complete
-    by calculating the number of times ~queen-cols~ gets called.
+ #+BEGIN_SRC scheme
+ scheme@(guile-user)> (make-branch 5 (make-mobile (make-branch 3 50) (make-branch 3 50)))
+ $60 = (5 (3 . 50) 3 . 50)
+ #+END_SRC
+**** 43
+     I'll measure the the time taken for function ~queens~ to complete
+     by calculating the number of times ~queen-cols~ gets called.
 
-    First, I'm going to see how many times ~queen-cols~ gets called
-    for the original version of ~queens~ with ~board-size=8~
+     First, I'm going to see how many times ~queen-cols~ gets called
+     for the original version of ~queens~ with ~board-size=8~
 
-    #+begin_example
-     board-size = 8 ; k = 8  -> 1 * (queen-cols 7)
-                    ; k = 7  -> 1 * (queen-cols 6)
-                    ; k = 6  -> 1 * (queen-cols 5)
-                    ; k = 5  -> 1 * (queen-cols 4)
-                    ; k = 4  -> 1 * (queen-cols 3)
-                    ; k = 3  -> 1 * (queen-cols 2)
-                    ; k = 2  -> 1 * (queen-cols 1)
-                    ; k = 1  -> 1 * (queen-cols 0)
-                    ; k = 0  -> 0
-    #+end_example
+     #+begin_example
+      board-size = 8 ; k = 8  -> 1 * (queen-cols 7)
+                     ; k = 7  -> 1 * (queen-cols 6)
+                     ; k = 6  -> 1 * (queen-cols 5)
+                     ; k = 5  -> 1 * (queen-cols 4)
+                     ; k = 4  -> 1 * (queen-cols 3)
+                     ; k = 3  -> 1 * (queen-cols 2)
+                     ; k = 2  -> 1 * (queen-cols 1)
+                     ; k = 1  -> 1 * (queen-cols 0)
+                     ; k = 0  -> 0
+     #+end_example
 
-    ~queen-cols~ gets called 8 times when ~board-size~ is 8
+     ~queen-cols~ gets called 8 times when ~board-size~ is 8
 
-    To generalize it ~queen-cols~ gets called B times when the
-    ~board-size~ is B.
+     To generalize it ~queen-cols~ gets called B times when the
+     ~board-size~ is B.
 
-    Next, I'm going to see how many times ~queen-cols~ gets called for
-    Louis Reasoner's version of the of ~queens~
+     Next, I'm going to see how many times ~queen-cols~ gets called for
+     Louis Reasoner's version of the of ~queens~
 
-    #+begin_example
-     board-size = 8 ; k = 8 -> 8 * (queen-cols 7)
-                    ;              k = 7 -> 8 * (queen-cols 6)
-                    ;                           k = 6 -> 8 * (queen-cols 5)
-                    ;                                        k = 5 -> 8 * (queen-cols 4)
-                    ;                                                     k = 4 -> 8 * (queen-cols 3)
-                    ;                                                                   k = 3 -> 8 * (queen-cols 2)
-                    ;                                                                                k = 2 -> 8 * (queen-cols 1)
-                    ;                                                                                              k = 1 -> 8 * (queen-cols 0)
-                    ;                                                                                                           k = 0 -> 0 
-    #+end_example
+     #+begin_example
+      board-size = 8 ; k = 8 -> 8 * (queen-cols 7)
+                     ;              k = 7 -> 8 * (queen-cols 6)
+                     ;                           k = 6 -> 8 * (queen-cols 5)
+                     ;                                        k = 5 -> 8 * (queen-cols 4)
+                     ;                                                     k = 4 -> 8 * (queen-cols 3)
+                     ;                                                                   k = 3 -> 8 * (queen-cols 2)
+                     ;                                                                                k = 2 -> 8 * (queen-cols 1)
+                     ;                                                                                              k = 1 -> 8 * (queen-cols 0)
+                     ;                                                                                                           k = 0 -> 0 
+     #+end_example
 
-    Here, the ~queen-cols~ is getting called ~8^8~ times or ~B^B~
-    times when the ~board-size is B.
+     Here, the ~queen-cols~ is getting called ~8^8~ times or ~B^B~
+     times when the ~board-size is B.
 
-    From above, if the original version of ~queens~ took time ~T~,
-    then Louis's version will take ~T^T~ to finish.
+     From above, if the original version of ~queens~ took time ~T~,
+     then Louis's version will take ~T^T~ to finish.
