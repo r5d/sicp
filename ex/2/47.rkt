@@ -3,7 +3,10 @@
 #lang racket
 
 (provide make-frame
-         make-frame-alt)
+         make-frame-alt
+         origin-frame
+         edge1-frame
+         edge2-frame)
 
 (require "46.rkt")
 
