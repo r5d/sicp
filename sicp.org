@@ -618,3 +618,9 @@ replaced by more refined models.
 
      From above, if the original version of ~queens~ took time ~T~,
      then Louis's version will take ~T^T~ to finish.
+**** 49
+***** util
+#+begin_src elisp
+(defun sr/painter-frame-coord (x y)
+   (list (/ x 500.0) (/ y 500.00)))
+#+end_src
