@@ -2,6 +2,11 @@
 
 #lang racket
 
+(provide
+ frame-coord-map
+ paint
+ wave->painter)
+
 (require racket/draw)
 (require racket/snip)
 
