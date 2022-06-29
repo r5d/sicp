@@ -5,7 +5,8 @@
 (provide
  frame-coord-map
  paint
- wave->painter)
+ wave->painter
+ x->painter)
 
 (require racket/draw)
 (require racket/snip)

@@ -2,6 +2,8 @@
 
 #lang racket
 
+(provide transform-painter)
+
 (require "46.rkt")
 (require "47.rkt")
 (require "49.rkt")
