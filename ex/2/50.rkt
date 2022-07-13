@@ -2,7 +2,10 @@
 
 #lang racket
 
-(provide transform-painter)
+(provide
+ transform-painter
+ counterclockwise-180
+ counterclockwise-270)
 
 (require "46.rkt")
 (require "47.rkt")

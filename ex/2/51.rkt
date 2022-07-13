@@ -43,3 +43,12 @@
       (lambda (frame)
         (paint-above frame)
         (paint-below frame)))))
+
+
+;;; below in terms of rotate operations
+(define (below-rot painter1 painter2)
+  (let ((painter1-270 (counterclockwise-270 painter1))
+        (painter2-270 (counterclockwise-270 painter2)))
+    (counterclockwise-270
+     (counterclockwise-180
+      (beside painter1-270 painter2-270)))))
