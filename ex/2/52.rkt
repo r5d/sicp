@@ -2,103 +2,21 @@
 
 #lang racket
 
-(provide
- frame-coord-map
- paint
- segments->painter
- wave->painter
- x->painter)
-
-(require racket/draw)
-(require racket/snip)
-
 (require "46.rkt")
-(require "47.rkt")
 (require "48.rkt")
+(require "49.rkt")
 
-(define dc #f) ; drawing context. gets initialized by paint function.
-
-
-(define (draw-line v1 v2)
-  (let ((x1 (xcor-vect v1))
-        (y1 (ycor-vect v1))
-        (x2 (xcor-vect v2))
-        (y2 (ycor-vect v2)))
-    (send dc draw-line x1 y1 x2 y2)))
-
-
-(define (paint painter)
-  (let ((frame (make-frame (make-vect 250 250)
-                           (make-vect 500 0)
-                           (make-vect 0 500)))
-        (target (make-bitmap 1000 1000)))
-    (set! dc (new bitmap-dc% (bitmap target)))
-    (painter frame)
-    (make-object image-snip% target)))
-
-
-(define (frame-coord-map frame)
-  (lambda (v)
-    (add-vect
-     (origin-frame frame)
-     (add-vect
-      (scale-vect (xcor-vect v) (edge1-frame frame))
-      (scale-vect (ycor-vect v) (edge2-frame frame))))))
-
-
-(define (segments->painter segment-list)
-  (lambda (frame)
-    (for-each
-     (lambda (segment)
-       (draw-line
-        ((frame-coord-map frame)
-         (start-segment segment))
-        ((frame-coord-map frame)
-         (end-segment segment))))
-     segment-list)))
-
-
-(define (outline->painter)
-  (let ((v-tl (make-vect 0 0))  ; top left
-        (v-tr (make-vect 1 0))  ; top right
-        (v-br (make-vect 1 1))  ; bottom right
-        (v-bl (make-vect 0 1))) ; bottom left
-      (segments->painter
-       (list (make-segment v-tl v-tr)
-             (make-segment v-tr v-br)
-             (make-segment v-br v-bl)
-             (make-segment v-bl v-tl)))))
-
-
-(define (x->painter)
-  (let ((v-tl (make-vect 0 0))  ; top left
-        (v-tr (make-vect 1 0))  ; top right
-        (v-br (make-vect 1 1))  ; bottom right
-        (v-bl (make-vect 0 1))) ; bottom left
-    (segments->painter
-     (list (make-segment v-tl v-br)
-           (make-segment v-tr v-bl)))))
-
-
-(define (diamond->painter)
-  (let ((v-mt (make-vect 0.5 0))  ; midpoint top
-        (v-mr (make-vect 1 0.5))  ; midpoint right
-        (v-mb (make-vect 0.5 1))  ; midpoint bottom
-        (v-ml (make-vect 0 0.5))) ; midpoint left
-    (segments->painter
-     (list (make-segment v-mt v-mr)
-           (make-segment v-mr v-mb)
-           (make-segment v-mb v-ml)
-           (make-segment v-ml v-mt)))))
-
-
-(define (wave->painter)
+(define (wavex->painter)
   (let* ((h-ls (make-vect 0.426 0.000))    ; head - left start
          (h-le (make-vect 0.349 0.164))    ; head - left end
          (h-rs (make-vect 0.505 0.000))    ; head - right start
          (h-re (make-vect 0.577 0.165))    ; head - right end
          (n-le (make-vect 0.434 0.287))    ; neck - left end
          (n-re (make-vect 0.499 0.283))    ; neck - right end
+
+         (m-ls (make-vect 0.440 0.230))    ; mouth - left start
+         (m-le (make-vect 0.462 0.260))    ; mouth - left end
+         (m-rs (make-vect 0.475 0.230))    ; mouth - right start
 
          (sh-le (make-vect 0.302 0.288))   ; shoulder - left end
          (sh-re (make-vect 0.620 0.290))   ; shoulder - right end
@@ -139,6 +57,10 @@
       (make-segment n-le sh-le)
       (make-segment n-re sh-re)
 
+      ;; mouth
+      (make-segment m-ls m-le)
+      (make-segment m-le m-rs)
+
       ;; left hand
       (make-segment lh-ts lh-te)
       (make-segment lh-bs lh-be)
@@ -156,5 +78,3 @@
       (make-segment wll-is wll-ie)
       (make-segment wrl-os wrl-oe)
       (make-segment wrl-is wrl-ie)))))
-
-;;; https://ricketyspace.net/sicp/2.49.webm
