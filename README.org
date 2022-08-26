@@ -9,6 +9,5 @@ directory.
 Racket dependencies:
 
 #+begin_src sh
-raco pkg install sicp
-raco pkg install rackunit
+raco pkg install sicp rackunit
 #+end_src
