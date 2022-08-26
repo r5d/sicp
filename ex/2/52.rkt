@@ -5,6 +5,7 @@
 (require "46.rkt")
 (require "48.rkt")
 (require "49.rkt")
+(require "51.rkt")
 
 (define (wavex->painter)
   (let* ((h-ls (make-vect 0.426 0.000))    ; head - left start
@@ -78,3 +79,25 @@
       (make-segment wll-is wll-ie)
       (make-segment wrl-os wrl-oe)
       (make-segment wrl-is wrl-ie)))))
+
+
+(define (split left right)
+  (lambda (painter n)
+    (if (= n 0)
+        painter
+        (let ((smaller ((split left right) painter (- n 1))))
+          (left painter (right smaller smaller))))))
+
+(define right-split (split beside below))
+(define up-split (split below beside))
+
+(define (corner-split-single painter n)
+  (if (= n 0)
+      painter
+      (let ((up (up-split painter (- n 1)))
+            (right (right-split painter (- n 1))))
+        (let ((top-left up)
+              (bottom-right right)
+              (corner (corner-split-single painter (- n 1))))
+          (beside (below painter top-left)
+                  (below bottom-right corner))))))

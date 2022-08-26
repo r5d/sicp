@@ -2,10 +2,11 @@
 
 #lang racket
 
+(provide beside below)
+
 (require "46.rkt")
 (require "49.rkt")
 (require "50.rkt")
-
 
 (define (beside painter1 painter2)
   (let ((split-point (make-vect 0.5 0.0)))
